@@ -38,6 +38,7 @@ class Fenetre:
         while running:
             self.screen.fill(WHITE) 
 
+            #ETAT FENETRE
             if e.assoc is not None:
                 img = self.font.render('mode liaison', True, BLACK)
                 self.screen.blit(img, (20, 20))
@@ -49,7 +50,8 @@ class Fenetre:
                 if isEnd:
                     running = False
                     break
-
+            
+            #DESSINS DES LIGNES
             for servDraw in self.servDraw:
                 center_x, center_y = servDraw.rectangle.center
                 for v in servDraw.serveur.getVoisins():
@@ -63,6 +65,7 @@ class Fenetre:
                         weight_text = str(poids)
                         text_img = self.font.render(weight_text, True, BLACK)
                         self.screen.blit(text_img, (mid_x - text_img.get_width() // 2, mid_y-20 - text_img.get_height() // 2))
+                #DESSIN ROUTE DIJKSTRA
                 if(e.plcrt1 is not None and e.plcrt2 is not None):
                     s=e.plcrt2
                     spredesc=e.plcrt2.getPredesc()

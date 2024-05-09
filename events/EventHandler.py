@@ -27,8 +27,9 @@ class EventHandler:
     def handle_event(self, event):
         if event.type == pygame.QUIT:
             return True
-
+    #CLIQUE SOURIS
         elif event.type == pygame.MOUSEBUTTONDOWN:
+            #CLIQUE GAUCHE
             if event.button==1:
                 for servdraw in self.fenetre.servDraw:
                     if servdraw.rectangle.collidepoint(event.pos):
@@ -44,6 +45,7 @@ class EventHandler:
                     self.plcrt1=None
                 else :
                     threading.Thread(target=lambda:(self.formAddServer(event.pos[0],event.pos[1])),daemon=True).start()
+            #CLIQUE DROIT
             if event.button==3:
                 for servdraw in self.fenetre.servDraw:
                     if servdraw.rectangle.collidepoint(event.pos):
@@ -64,7 +66,7 @@ class EventHandler:
                 mouse_x, mouse_y = event.pos
                 self.current_dragging.rectangle.x = mouse_x + self.offset_x
                 self.current_dragging.rectangle.y = mouse_y + self.offset_y
-
+    #CLIQUE BOUTON CLAVIER 
         elif event.type == pygame.KEYDOWN:
             for servdraw in self.fenetre.servDraw:
                 if event.key==pygame.K_e and servdraw.rectangle.collidepoint(pygame.mouse.get_pos()):
