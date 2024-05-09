@@ -5,11 +5,10 @@ from entity.Site import Site
 class Algo:
     @staticmethod
     def getMin(graphe:list[Serveur]) -> Serveur:
-        res=graphe[0]
-        for serveur in graphe:
-            if(res.getDistance()<serveur.getDistance()):
-                res=serveur
-        return res
+        if not graphe:
+            return None 
+        serveur_min = min(graphe, key=lambda serveur: serveur.getDistance())
+        return serveur_min
     
     @staticmethod
     def extractMin(graphe:list[Serveur]) -> Serveur:
@@ -31,6 +30,17 @@ class Algo:
             for voisin in minimal.getVoisins():
                 if(voisin[0].getDistance()>minimal.getDistance()+voisin[1]):
                     voisin[0].setDistance(minimal.getDistance()+voisin[1])
-                    voisin[0].setPredesc(minimal)            
-    
+                    voisin[0].setPredesc(minimal)    
+
+        
+    @staticmethod
+    def shortestPathToSite(graphe: list[Serveur], debut: Serveur, site: Site) -> tuple:
+        Algo.dijkstra(graphe, debut)
+        #liste de tous les serverus avec le site donné
+        servWithSite = [serveur for serveur in graphe if site in serveur.getSites()]
+        if servWithSite:
+            serveur_plus_proche = min(servWithSite, key=lambda s: s.getDistance())
+            return serveur_plus_proche
+        else:
+            return None
     

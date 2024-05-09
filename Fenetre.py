@@ -11,11 +11,12 @@ from drawing.ServeurDrawing import ServeurDrawing
 
 class Fenetre:
     def __init__(self):
-        SCREEN_WIDTH = 800
-        SCREEN_HEIGHT = 600
+        SCREEN_WIDTH = 1000
+        SCREEN_HEIGHT = 800
 
         WHITE = (255, 255, 255)
         BLACK = (0, 0, 0)
+        RED = (255, 0, 0)
 
         FPS = 60
 
@@ -26,6 +27,7 @@ class Fenetre:
         # Font initialization
         self.font = pygame.font.SysFont(None, 24)
 
+        self.sites:list[Serveur]
         self.serv = []
         self.servDraw = []
 
@@ -34,12 +36,14 @@ class Fenetre:
 
         e = EventHandler(self)
         while running:
-            self.screen.fill(WHITE)  # Clear the screen first
+            self.screen.fill(WHITE) 
 
             if e.assoc is not None:
                 img = self.font.render('mode liaison', True, BLACK)
                 self.screen.blit(img, (20, 20))
-
+            if(e.plcrt1 is not None and e.plcrt2 is not None):
+                img = self.font.render('mode dijkstra', True, BLACK)
+                self.screen.blit(img, (20, 20))
             for event in pygame.event.get():
                 isEnd = e.handle_event(event)
                 if isEnd:
@@ -59,7 +63,17 @@ class Fenetre:
                         weight_text = str(poids)
                         text_img = self.font.render(weight_text, True, BLACK)
                         self.screen.blit(text_img, (mid_x - text_img.get_width() // 2, mid_y-20 - text_img.get_height() // 2))
-
+                if(e.plcrt1 is not None and e.plcrt2 is not None):
+                    s=e.plcrt2
+                    spredesc=e.plcrt2.getPredesc()
+                    while(spredesc is not None):
+                        draw1=self.getServDraw(s)
+                        draw2=self.getServDraw(spredesc)
+                        center_x, center_y = draw2.rectangle.center
+                        dest_x, dest_y = draw1.rectangle.center
+                        pygame.draw.line(self.screen, RED, (center_x, center_y), (dest_x, dest_y), width=3)
+                        s=spredesc
+                        spredesc=s.getPredesc()
                 IMAGE = pygame.image.load('dessin_serveur_vrai.png').convert_alpha()
                 self.screen.blit(IMAGE, servDraw.rectangle)
                 # Draw IP under the image
@@ -73,7 +87,17 @@ class Fenetre:
 
         pygame.quit()
         print("FINNNN")
+
+
     def getServDraw(self, serveur) -> ServeurDrawing:
         for serv in self.servDraw:
             if serv.serveur == serveur:
                 return serv
+            
+    def getSiteViaServer(self,nomSite) -> Site :
+        for serv in self.serv:
+            for site in serv.getSites():
+                if(site.getDomaine()==nomSite):
+                    return site
+        return None
+    
