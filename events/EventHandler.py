@@ -98,6 +98,7 @@ class EventHandler:
         poids = simpledialog.askstring("Link serveur", "Entrez le poids de la liaison:                       ", parent=root)
         if poids:
             serv1.addVoisin((serv2,int(poids)))
+            serv2.addVoisin((serv1,int(poids)))
         root.mainloop()
 
     def formDetailServer(self,serv):
@@ -134,11 +135,14 @@ class EventHandler:
         siterecherche.pack(pady=10)
         def find_shortest_path(): 
             nomsite=siterecherche.get()
-            if nomsite:   
-                toSearch=self.fenetre.getSiteViaServer(nomsite) 
-                self.plcrt1=serv
-                self.plcrt2=Algo.shortestPathToSite(self.fenetre.serv,self.plcrt1,toSearch)
-                root.destroy()
+            if nomsite :   
+                if self.fenetre.getSiteViaServer(nomsite) is None:
+                    messagebox.showinfo("Erreur", f"Le site {nomsite} n'a pas été trouvé")
+                else :
+                    self.plcrt1=serv
+                    toSearch=self.fenetre.getSiteViaServer(nomsite) 
+                    self.plcrt2=Algo.shortestPathToSite(self.fenetre.serv,self.plcrt1,toSearch)
+                    root.destroy()
             else:
                 messagebox.showinfo("Erreur", "Le nom du site a chercher ne peut pas être vide.")
         path_button = tk.Button(root, text="Recherche plus court chemin", command=find_shortest_path)
