@@ -1,0 +1,28 @@
+technologie :
+    -Pygame & Tkinter
+
+classes :
+    ✔ Site @done (5/7/2024, 9:52:14 PM)
+        -NomDomaine
+    ✔ Serveur @done (5/7/2024, 10:11:48 PM)
+        -Ip
+        -List<Tuple<Serveur,poids>> voisins
+        -List<Site> sites
+    ✔ Algos @done (5/8/2024, 11:53:29 AM)
+        ✔ fonction extractMin @done (5/8/2024, 11:53:27 AM)
+        ✔ fonction dijkstra @done (5/8/2024, 11:53:25 AM)
+    ☐ EventsHandler
+    ✔ ServeurDrawing @done (5/9/2024, 1:10:48 PM)
+        -Serveur
+        -is_draging
+        ✔ fonction __init__: @done (5/9/2024, 12:16:19 AM)
+            ✔ rectangle = pygame.rect.Rect(176, 134, 17, 17) @done (5/9/2024, 12:16:19 AM)
+            ✔ rectangle_draging = False @done (5/9/2024, 12:16:20 AM)
+    ☐ Fenetre
+✔ FormAddServer @done (5/9/2024, 11:12:12 AM)
+☐ formulaire 
+    ☐ add site 
+    ☐ liste site
+    ☐ recherche plus court
+✔ FormLinkServer @done (5/9/2024, 11:12:13 AM)
+✔ drawing des liaisons @done (5/9/2024, 12:54:25 PM)
