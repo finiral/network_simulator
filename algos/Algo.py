@@ -26,14 +26,17 @@ class Algo:
         debut.setVisited(True)
         fil=[]
         fil.append(debut)
+        i=1
         while len(fil)!=0:
             v=fil.pop(0)
             for voisin in v.getVoisins():
                 if voisin[0].getVisited()==False :
-                    voisin[0].setDistance(len(fil))
+                    voisin[0].setDistance(i)
+                    print(i)
                     voisin[0].setVisited(True)
                     voisin[0].setPredesc(v)
                     fil.append(voisin[0])
+            i=i+1
 
     @staticmethod
     def dijkstra(graphe:list[Serveur],debut:Serveur):
