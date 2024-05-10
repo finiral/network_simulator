@@ -15,7 +15,7 @@ class Fenetre:
         SCREEN_HEIGHT = 800
 
         WHITE = (255, 255, 255)
-        BLACK = (0, 0, 0)
+        BLACK = (60, 60, 60)
         RED = (255, 0, 0)
 
         FPS = 60

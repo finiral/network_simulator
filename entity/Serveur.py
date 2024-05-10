@@ -8,6 +8,8 @@ class Serveur :
     _sites:list[Site]
     _predesc:Serveur
     _distance:int
+    visited:bool
+    visited=False
 
     def getIp(self):
         return self._ip
@@ -19,6 +21,8 @@ class Serveur :
         return self._predesc
     def getDistance(self):
         return self._distance
+    def getVisited(self):
+        return self.visited
     
     def setIp(self,ip:str):
         self._ip=ip
@@ -28,6 +32,9 @@ class Serveur :
         self._predesc=predesc
     def setVoisins(self,voisins:list[tuple[Serveur,int]]):
         self._voisins=voisins
+    def setVisited(self,vi):
+        self.visited=vi
+
     def addVoisin(self,voisin:tuple[Serveur,int]):
         self._voisins.append(voisin)
     def setSites(self,sites:list[Site]):

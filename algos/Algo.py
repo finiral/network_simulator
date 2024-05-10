@@ -16,6 +16,25 @@ class Algo:
         graphe.remove(minimal)
         return minimal
     
+
+    @staticmethod
+    def BFS(graphe:list[Serveur],debut:Serveur):
+        for sommet in graphe :
+            sommet.setDistance(inf)
+            sommet.setPredesc(None)
+        debut.setDistance(0)
+        debut.setVisited(True)
+        fil=[]
+        fil.append(debut)
+        while len(fil)!=0:
+            v=fil.pop(0)
+            for voisin in v.getVoisins():
+                if voisin[0].getVisited()==False :
+                    voisin[0].setDistance(len(fil))
+                    voisin[0].setVisited(True)
+                    voisin[0].setPredesc(v)
+                    fil.append(voisin[0])
+
     @staticmethod
     def dijkstra(graphe:list[Serveur],debut:Serveur):
         for sommet in graphe :
@@ -36,6 +55,18 @@ class Algo:
     @staticmethod
     def shortestPathToSite(graphe: list[Serveur], debut: Serveur, site: Site) -> tuple:
         Algo.dijkstra(graphe, debut)
+        #liste de tous les serverus avec le site donné
+        servWithSite = [serveur for serveur in graphe if site in serveur.getSites()]
+        if servWithSite:
+            serveur_plus_proche = min(servWithSite, key=lambda s: s.getDistance())
+            return serveur_plus_proche
+        else:
+            return None
+        
+
+    @staticmethod
+    def shortestPathBFS(graphe: list[Serveur], debut: Serveur, site: Site) -> tuple:
+        Algo.BFS(graphe,debut)
         #liste de tous les serverus avec le site donné
         servWithSite = [serveur for serveur in graphe if site in serveur.getSites()]
         if servWithSite:
